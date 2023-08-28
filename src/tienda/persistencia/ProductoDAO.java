@@ -18,6 +18,11 @@ public class ProductoDAO extends DAO{
         this.fabricanteServicio = new FabricanteServicio();
     }
     
+    //creo un getter de FabricanteServicio para poder llamar metodos del service
+    public FabricanteServicio getFabricanteServicio() {
+        return fabricanteServicio;
+    }    
+    
     //metodos
     public void guardarProducto(Producto producto) throws Exception{
         try{
@@ -134,7 +139,7 @@ public class ProductoDAO extends DAO{
     public Collection<Producto> listaProductosPorRangos(Double min, Double max) throws Exception{
         try{
                         
-            String consultaSQL = "SELECT * FROM Productos WHERE Precio BETWEEN "+min+" AND "+max+";";
+            String consultaSQL = "SELECT * FROM Producto WHERE Precio BETWEEN "+min+" AND "+max+";";
             
             consutarBD(consultaSQL);
             
@@ -225,4 +230,5 @@ public class ProductoDAO extends DAO{
             throw e;
         }
     }
+    
 }

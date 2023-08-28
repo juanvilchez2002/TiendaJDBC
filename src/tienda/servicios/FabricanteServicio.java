@@ -9,6 +9,7 @@ public class FabricanteServicio {
     //creamos una instancia a FabricanteDAO
     public FabricanteDAO dao;
     
+    
     //inicializamos el constructor
     public FabricanteServicio(){
         this.dao = new FabricanteDAO();

@@ -5,6 +5,7 @@
 package tienda;
 
 import tienda.servicios.FabricanteServicio;
+import tienda.servicios.ProductoServicio;
 
 
 public class MainClass {
@@ -13,7 +14,8 @@ public class MainClass {
     public static void main(String[] args) throws Exception {
         
         FabricanteServicio fs = new FabricanteServicio();
-        fs.crearFabricante("Nuevo");
+        ProductoServicio ps = new ProductoServicio();
+        ps.listarProductoPorRango(0.0, 150.0);
     }
     
 }
