@@ -172,7 +172,7 @@ public class ProductoDAO extends DAO{
         try{
             String consultaSQL = "SELECT * FROM Producto WHERE nombre LIKE '%"+nombre+"%';";
             
-            consutarBD(nombre);
+            consutarBD(consultaSQL);
             
             Producto producto = null;
             Collection<Producto> productos = new ArrayList(); 

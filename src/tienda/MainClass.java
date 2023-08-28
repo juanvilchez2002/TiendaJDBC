@@ -15,7 +15,7 @@ public class MainClass {
         
         FabricanteServicio fs = new FabricanteServicio();
         ProductoServicio ps = new ProductoServicio();
-        ps.listarProductoPorRango(0.0, 150.0);
+        ps.listarProductoBarato();
     }
     
 }

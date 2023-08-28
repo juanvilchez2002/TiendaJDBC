@@ -144,4 +144,51 @@ public class ProductoServicio {
             throw e;
         }
     }
+    
+    public void listarProductoPorNombre(String nombre) throws Exception{
+        try{
+            if(nombre == null || nombre.trim().isEmpty()){
+                throw new Exception("Debe de ingresar un nombre");
+            }
+            
+            Collection<Producto> producto = dao.listarProductosPorNombre(nombre);
+            
+            //imprimimos
+            if(producto.isEmpty()){
+                throw new Exception("No hay productos");
+            }else{
+                System.out.println("Codigo\t\t Producto\t\t Precio");
+                for(Producto product: producto){
+                    System.out.print(product.getCodigo()+" \t\t");
+                    System.out.print(product.getNombre()+" \t\t");
+                    System.out.print(product.getPrecio()+" \t\t");
+                    System.out.println("");
+                }
+            }
+        }catch(Exception e){
+            throw e;
+        }
+        
+    }
+    
+    public void listarProductoBarato()throws Exception{
+        try{
+            Collection<Producto> producto = dao.listarProductosMasBaratos();
+
+            //imprimimos
+            if(producto.isEmpty()){
+                throw new Exception("No hay productos");
+            }else{
+                System.out.println("Codigo\t\t Producto\t\t Precio");
+                for(Producto product: producto){
+                    System.out.print(product.getCodigo()+" \t\t");
+                    System.out.print(product.getNombre()+" \t\t");
+                    System.out.print(product.getPrecio()+" \t\t");
+                    System.out.println("");
+                }
+            }            
+        }catch(Exception e){
+            throw e;
+        }
+    }
 }
