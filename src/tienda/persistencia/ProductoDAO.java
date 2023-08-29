@@ -31,7 +31,7 @@ public class ProductoDAO extends DAO{
                 throw new Exception("Debe de ingresar un Producto");
             }
             
-            String consultaSQL = "INSERT INTO Producto VALUES('"+producto.getNombre()+"', "
+            String consultaSQL = "INSERT INTO Producto (nombre, precio, codigo_fabricante) VALUES('"+producto.getNombre()+"', "
                     +producto.getPrecio()+", "+producto.getFabricante().getCodigo()+");";
             
             insertarModificarEliminar(consultaSQL);
@@ -49,10 +49,47 @@ public class ProductoDAO extends DAO{
                 throw new Exception("Debe de ingresar un producto");
             }
             
-            String consultaSQL = "UPDATE Producto SET nombre='"+producto.getNombre()+
-                    "' , precio="+producto.getPrecio()+" WHERE codigo = "+producto.getCodigo()+";";
+            String consultaSQLNombre = "";
+            int bandera = 0;
             
-            insertarModificarEliminar(consultaSQL);
+            if(!producto.getNombre().isEmpty()){
+                consultaSQLNombre = " nombre='"+producto.getNombre()+"' ";
+                bandera = 1;
+            }
+            
+            String consultaSQLPrecio = "";
+            
+            if(producto.getPrecio()>=0){
+                consultaSQLPrecio = " precio="+producto.getPrecio();
+                
+                if(bandera == 1){
+                    consultaSQLPrecio = ", "+consultaSQLPrecio;
+                }
+                
+                bandera = 2;
+            }
+            
+            String consultaSQLFabricante = "";
+            
+            if(producto.getFabricante() != null){
+                consultaSQLFabricante = " codigo_fabricante="+producto.getFabricante().getCodigo();
+                
+                if(bandera == 2){
+                    consultaSQLFabricante = ", "+consultaSQLFabricante;
+                }
+            }
+            
+            if(producto.getFabricante() == null && producto.getPrecio() == -1.0 && producto.getNombre().isEmpty()){
+                System.out.println("No hay datos a actualizar");
+            }else{
+                String consultaSQL = "UPDATE Producto SET "+
+                        consultaSQLNombre + consultaSQLPrecio + consultaSQLFabricante +                    
+                        " WHERE codigo = "+producto.getCodigo()+";";
+
+                System.out.println(consultaSQL);
+                insertarModificarEliminar(consultaSQL);
+            }
+            
         }catch(Exception e){
             throw e;
         }finally{

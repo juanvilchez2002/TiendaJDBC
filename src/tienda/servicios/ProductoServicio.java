@@ -40,8 +40,9 @@ public class ProductoServicio {
         }
     }
     
-    public void editarProducto(Integer codigoProducto, String nombre, Double precio, String codigoFabricante) throws Exception{
+    public void editarProducto(Integer codigoProducto, String nombre, Double precio, Integer codigoFabricante) throws Exception{
         try{
+            /*
             //validando
             if(codigoProducto == null || codigoProducto < 0){
                 throw new Exception("Debe de ingresar un codigo de producto valido");
@@ -54,7 +55,7 @@ public class ProductoServicio {
             }
             if(codigoProducto == null || codigoProducto < 0){
                 throw new Exception("Debe de ingresar un codigo de producto valido");
-            }
+            }*/
             
             //buscamos el producto 
             Producto producto = dao.buscarProductoPorId(codigoProducto);
@@ -63,10 +64,29 @@ public class ProductoServicio {
             producto.setNombre(nombre);
             producto.setPrecio(precio);
             
-            Fabricante fabricante = dao.getFabricanteServicio().buscarFabricantePorId(codigoProducto);
+            Fabricante fabricante = null;
+            System.out.println();
+            if(codigoFabricante != -1){
+                fabricante = dao.getFabricanteServicio().buscarFabricantePorId(codigoFabricante);
+            }
+            
             producto.setFabricante(fabricante);
             
             dao.modificarProducto(producto);            
+        }catch(Exception e){
+            throw e;
+        }
+    }
+    
+    public Producto buscarProductoPorId(Integer codigo) throws Exception{
+        try{
+            //validando
+            if(codigo == null || codigo == 0){
+                throw new Exception("Debe de ingresar un codigo valido");
+            }
+            
+            Producto producto = dao.buscarProductoPorId(codigo);
+            return producto;            
         }catch(Exception e){
             throw e;
         }
@@ -85,6 +105,30 @@ public class ProductoServicio {
                 for(Producto product: producto){
                     System.out.print(product.getCodigo()+" \t\t");
                     System.out.print(product.getNombre());
+                    System.out.println("");
+                }
+            }
+            
+        }catch(Exception e){
+            throw e;
+        }
+    }
+    
+    public void listarProductoTotal() throws Exception{
+        try{
+            //llamamos al metodo listar
+            Collection<Producto> producto = dao.listarProductos();
+            
+            //imprimimos
+            if(producto.isEmpty()){
+                throw new Exception("No hay productos");
+            }else{
+                System.out.println("Codigo\t\t Producto\t\t Precio\t\t Fabricante");
+                for(Producto product: producto){
+                    System.out.print(product.getCodigo()+" \t\t");
+                    System.out.print(product.getNombre()+" \t\t");
+                    System.out.print(product.getPrecio()+" \t\t");
+                    System.out.print(product.getFabricante().getNombre());
                     System.out.println("");
                 }
             }

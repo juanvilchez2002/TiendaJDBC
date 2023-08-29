@@ -1,6 +1,7 @@
 
 package tienda.servicios;
 
+import java.util.Collection;
 import tienda.entidad.Fabricante;
 import tienda.persistencia.FabricanteDAO;
 
@@ -46,5 +47,25 @@ public class FabricanteServicio {
         }
     }
     
-    
+    public void listarFabricante() throws Exception{
+        try{
+            //llamamos al metodo listar
+            Collection<Fabricante> fabricante = dao.listaFabricante();
+            
+            //imprimimos
+            if(fabricante.isEmpty()){
+                throw new Exception("No hay productos");
+            }else{
+                System.out.println("Codigo\t\t Producto");
+                for(Fabricante fabricant: fabricante){
+                    System.out.print(fabricant.getCodigo()+" \t\t");
+                    System.out.print(fabricant.getNombre());
+                    System.out.println("");
+                }
+            }
+            
+        }catch(Exception e){
+            throw e;
+        }
+    }
 }
